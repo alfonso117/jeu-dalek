@@ -13,6 +13,7 @@
 from enum import Enum
 from colorama import init, Fore, Back, Style
 import msvcrt
+import random
 
 init(autoreset=True)
 
@@ -37,22 +38,22 @@ class Case(Enum):
     CVide = 2
 
 grille = [
-    [Case.Doctor, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
-    [Case.Dalek, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
-    [Case.Dalek, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
-    [Case.Dalek, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
-    [Case.Dalek, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
-    [Case.Dalek, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
-    [Case.Dalek, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
-    [Case.Dalek, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
-    [Case.Dalek, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
-    [Case.Dalek, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
-    [Case.Dalek, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
-    [Case.Dalek, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
-    [Case.Dalek, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
-    [Case.Dalek, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
-    [Case.Dalek, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
-    [Case.Dalek, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
+    [Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
+    [Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
+    [Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
+    [Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
+    [Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
+    [Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
+    [Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
+    [Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
+    [Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
+    [Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
+    [Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
+    [Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
+    [Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
+    [Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
+    [Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
+    [Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, Case.CVide, ],
 ]
 
 class caracteristiques:
@@ -86,54 +87,78 @@ for y, ligne in enumerate(grille):
         objet = grilleColors[case]
         print(objet.color + objet.char, end='')
 
-m = Move(LC(0, 0),LC(0, 0))
 runGame = True
+win = False
+lose = False
+niveau = 1
 
 while runGame:
-    c = msvcrt.getch()
-    if c == b'\xe0':
-        direction = msvcrt.getch()
-        touche =ord(direction)
 
-        try:
-          arrow = ArrowKeys(touche)
-        except ValueError:
-            continue
-        
-        m.to_position = LC(m.from_position.l, m.from_position.c)
-     
-        if arrow == ArrowKeys.UP_LEFT:
-            m.to_position.l -= 1
-            m.to_position.c -= 1
-        elif arrow == ArrowKeys.UP:
-            m.to_position.l -= 1
-        elif arrow == ArrowKeys.UP_RIGHT:
-            m.to_position.l -= 1
-            m.to_position.c += 1
-        elif arrow == ArrowKeys.DOWN_LEFT:
-            m.to_position.l += 1
-            m.to_position.c -= 1
-        elif arrow == ArrowKeys.DOWN:
-            m.to_position.l += 1
-        elif arrow == ArrowKeys.DOWN_RIGHT:
-            m.to_position.l += 1
-            m.to_position.c += 1
-        elif arrow == ArrowKeys.LEFT:
-            m.to_position.c -= 1
-        elif arrow == ArrowKeys.RIGHT:
-            m.to_position.c += 1
-        
-        if (0 <= m.to_position.l < len(grille) and (0 <= m.to_position.c < len(grille[0])) and grille[m.to_position.l][m.to_position.c] == Case.CVide):
-            gotoxy(positionInitialX + m.from_position.c * 3, positionInitialY + m.from_position.l)
-            print(grilleColors[Case.CVide].color + grilleColors[Case.CVide].char, end='')
+    l = random.randint(0, len(grille) - 1)
+    c = random.randint(0, len(grille[0]) - 1)
+
+    grille[l][c] = Case.Doctor
+    gotoxy(positionInitialX + c * 3, positionInitialY + l)
+    print(grilleColors[Case.Doctor].color + grilleColors[Case.Doctor].char, end='')
+
+    m = Move(LC(l, c),LC(l, c))
+
+    dalekInGame = 3
+
+    for _ in range(dalekInGame * niveau):
+        l_dalek = random.randint(0, len(grille) - 1)
+        c_dalek = random.randint(0, len(grille[0]) - 1)
+
+        if grille[l_dalek][c_dalek] == Case.CVide:
+            grille[l_dalek][c_dalek] = Case.Dalek
+            gotoxy(positionInitialX + c_dalek * 3, positionInitialY + l_dalek)
+            print(grilleColors[Case.Dalek].color + grilleColors[Case.Dalek].char, end='')
+
+    while not win and not lose:
+        c = msvcrt.getch()
+        if c == b'\xe0':
+            direction = msvcrt.getch()
+            touche =ord(direction)
+    
+            try:
+              arrow = ArrowKeys(touche)
+            except ValueError:
+                continue
             
-            grille[m.from_position.l][m.from_position.c] = Case.CVide
-            grille[m.to_position.l][m.to_position.c] = Case.Doctor
-    
-            gotoxy(positionInitialX + m.to_position.c * 3, positionInitialY + m.to_position.l)
-            print(grilleColors[Case.Doctor].color + grilleColors[Case.Doctor].char, end='')
-    
-            m.from_position = LC(m.to_position.l, m.to_position.c)
-    else:
-        continue
+            m.to_position = LC(m.from_position.l, m.from_position.c)
+         
+            if arrow == ArrowKeys.UP_LEFT:
+                m.to_position.l -= 1
+                m.to_position.c -= 1
+            elif arrow == ArrowKeys.UP:
+                m.to_position.l -= 1
+            elif arrow == ArrowKeys.UP_RIGHT:
+                m.to_position.l -= 1
+                m.to_position.c += 1
+            elif arrow == ArrowKeys.DOWN_LEFT:
+                m.to_position.l += 1
+                m.to_position.c -= 1
+            elif arrow == ArrowKeys.DOWN:
+                m.to_position.l += 1
+            elif arrow == ArrowKeys.DOWN_RIGHT:
+                m.to_position.l += 1
+                m.to_position.c += 1
+            elif arrow == ArrowKeys.LEFT:
+                m.to_position.c -= 1
+            elif arrow == ArrowKeys.RIGHT:
+                m.to_position.c += 1
+            
+            if (0 <= m.to_position.l < len(grille) and (0 <= m.to_position.c < len(grille[0])) and (grille[m.to_position.l][m.to_position.c] == Case.CVide)):
+                gotoxy(positionInitialX + m.from_position.c * 3, positionInitialY + m.from_position.l)
+                print(grilleColors[Case.CVide].color + grilleColors[Case.CVide].char, end='')
+                
+                grille[m.from_position.l][m.from_position.c] = Case.CVide
+                grille[m.to_position.l][m.to_position.c] = Case.Doctor
+        
+                gotoxy(positionInitialX + m.to_position.c * 3, positionInitialY + m.to_position.l)
+                print(grilleColors[Case.Doctor].color + grilleColors[Case.Doctor].char, end='')
+        
+                m.from_position = LC(m.to_position.l, m.to_position.c)
+        else:
+            continue
 
