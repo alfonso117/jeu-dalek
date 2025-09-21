@@ -60,9 +60,19 @@ class caracteristiques:
         self.char = char
         self.color = color
 
+class LC:
+    def __init__(self, l, c):
+        self.l = l
+        self.c = c
+
+class Move:
+    def __init__(self, from_position, to_position):
+        self.from_position = from_position
+        self.to_position = to_position
+
 grilleColors = {
-    Case.Doctor: caracteristiques(Back.BLUE, 'D '),
-    Case.Dalek: caracteristiques(Back.RED, '& '),
+    Case.Doctor: caracteristiques(Back.BLUE, ' D '),
+    Case.Dalek: caracteristiques(Back.RED, ' & '),
     Case.CVide: caracteristiques(Back.WHITE, ' _ ')
 }
 
@@ -76,4 +86,54 @@ for y, ligne in enumerate(grille):
         objet = grilleColors[case]
         print(objet.color + objet.char, end='')
 
-msvcrt.getch()
+m = Move(LC(0, 0),LC(0, 0))
+runGame = True
+
+while runGame:
+    c = msvcrt.getch()
+    if c == b'\xe0':
+        direction = msvcrt.getch()
+        touche =ord(direction)
+
+        try:
+          arrow = ArrowKeys(touche)
+        except ValueError:
+            continue
+        
+        m.to_position = LC(m.from_position.l, m.from_position.c)
+     
+        if arrow == ArrowKeys.UP_LEFT:
+            m.to_position.l -= 1
+            m.to_position.c -= 1
+        elif arrow == ArrowKeys.UP:
+            m.to_position.l -= 1
+        elif arrow == ArrowKeys.UP_RIGHT:
+            m.to_position.l -= 1
+            m.to_position.c += 1
+        elif arrow == ArrowKeys.DOWN_LEFT:
+            m.to_position.l += 1
+            m.to_position.c -= 1
+        elif arrow == ArrowKeys.DOWN:
+            m.to_position.l += 1
+        elif arrow == ArrowKeys.DOWN_RIGHT:
+            m.to_position.l += 1
+            m.to_position.c += 1
+        elif arrow == ArrowKeys.LEFT:
+            m.to_position.c -= 1
+        elif arrow == ArrowKeys.RIGHT:
+            m.to_position.c += 1
+        
+        if (0 <= m.to_position.l < len(grille) and (0 <= m.to_position.c < len(grille[0])) and grille[m.to_position.l][m.to_position.c] == Case.CVide):
+            gotoxy(positionInitialX + m.from_position.c * 3, positionInitialY + m.from_position.l)
+            print(grilleColors[Case.CVide].color + grilleColors[Case.CVide].char, end='')
+            
+            grille[m.from_position.l][m.from_position.c] = Case.CVide
+            grille[m.to_position.l][m.to_position.c] = Case.Doctor
+    
+            gotoxy(positionInitialX + m.to_position.c * 3, positionInitialY + m.to_position.l)
+            print(grilleColors[Case.Doctor].color + grilleColors[Case.Doctor].char, end='')
+    
+            m.from_position = LC(m.to_position.l, m.to_position.c)
+    else:
+        continue
+
