@@ -92,6 +92,46 @@ win = False
 lose = False
 niveau = 1
 
+def lire_touche(m, arrow):
+    if arrow == ArrowKeys.UP_LEFT:
+        m.to_position.l -= 1
+        m.to_position.c -= 1
+    elif arrow == ArrowKeys.UP:
+        m.to_position.l -= 1
+    elif arrow == ArrowKeys.UP_RIGHT:
+        m.to_position.l -= 1
+        m.to_position.c += 1
+    elif arrow == ArrowKeys.DOWN_LEFT:
+        m.to_position.l += 1
+        m.to_position.c -= 1
+    elif arrow == ArrowKeys.DOWN:
+        m.to_position.l += 1
+    elif arrow == ArrowKeys.DOWN_RIGHT:
+        m.to_position.l += 1
+        m.to_position.c += 1
+    elif arrow == ArrowKeys.LEFT:
+        m.to_position.c -= 1
+    elif arrow == ArrowKeys.RIGHT:
+        m.to_position.c += 1
+
+def move_doc(m, grille, positionInitialX, positionInitialY ):
+    if (0 <= m.to_position.l < len(grille) and (0 <= m.to_position.c < len(grille[0])) and (grille[m.to_position.l][m.to_position.c] == Case.CVide)):
+                    
+        ## look for last position and Print new case bckGround
+        gotoxy(positionInitialX + m.from_position.c * 3, positionInitialY + m.from_position.l)
+        print(grilleColors[Case.CVide].color + grilleColors[Case.CVide].char, end='')
+
+        ## Change grille value
+        grille[m.from_position.l][m.from_position.c] = Case.CVide
+        grille[m.to_position.l][m.to_position.c] = Case.Doctor
+
+        ## Go to new position and print doc
+        gotoxy(positionInitialX + m.to_position.c * 3, positionInitialY + m.to_position.l)
+        print(grilleColors[Case.Doctor].color + grilleColors[Case.Doctor].char, end='')
+
+        ## Last position == actual position
+        m.from_position = LC(m.to_position.l, m.to_position.c)
+
 while runGame:
 
     l = random.randint(0, len(grille) - 1)
@@ -105,60 +145,50 @@ while runGame:
 
     dalekInGame = 3
 
-    for _ in range(dalekInGame * niveau):
-        l_dalek = random.randint(0, len(grille) - 1)
-        c_dalek = random.randint(0, len(grille[0]) - 1)
+    doctor_xy = [0,0]
 
+    dalek_pos = [[0,0],[0,0],[0,0]]
+    ## Dessin daleks 
+    for i in range(dalekInGame * niveau):
+        ##dalek_pos = [l_dalek , c_dalek]
+
+
+        ## Give random position to the Dalek
+        dalek_pos[i] = random.randint(0, len(grille) - 1)
+        c_dalek[i] = random.randint(0, len(grille[0]) - 1)
+
+        ## if the space in the Grille is empty print the fcking Dalek
         if grille[l_dalek][c_dalek] == Case.CVide:
             grille[l_dalek][c_dalek] = Case.Dalek
             gotoxy(positionInitialX + c_dalek * 3, positionInitialY + l_dalek)
             print(grilleColors[Case.Dalek].color + grilleColors[Case.Dalek].char, end='')
+        ## else no sabemos todavia 
+
+
+    def move_daleks():
+        for _ in range(dalekInGame * niveau):
+            ## look for last position and Print new case bckGround
+            gotoxy(positionInitialX + m.from_position.c * 3, positionInitialY + m.from_position.l)
+            print(grilleColors[Case.CVide].color + grilleColors[Case.CVide].char, end='')
+             
 
     while not win and not lose:
         c = msvcrt.getch()
+        m.to_position = LC(m.from_position.l, m.from_position.c)
+
         if c == b'\xe0':
             direction = msvcrt.getch()
             touche =ord(direction)
-    
+
             try:
               arrow = ArrowKeys(touche)
             except ValueError:
                 continue
             
-            m.to_position = LC(m.from_position.l, m.from_position.c)
-         
-            if arrow == ArrowKeys.UP_LEFT:
-                m.to_position.l -= 1
-                m.to_position.c -= 1
-            elif arrow == ArrowKeys.UP:
-                m.to_position.l -= 1
-            elif arrow == ArrowKeys.UP_RIGHT:
-                m.to_position.l -= 1
-                m.to_position.c += 1
-            elif arrow == ArrowKeys.DOWN_LEFT:
-                m.to_position.l += 1
-                m.to_position.c -= 1
-            elif arrow == ArrowKeys.DOWN:
-                m.to_position.l += 1
-            elif arrow == ArrowKeys.DOWN_RIGHT:
-                m.to_position.l += 1
-                m.to_position.c += 1
-            elif arrow == ArrowKeys.LEFT:
-                m.to_position.c -= 1
-            elif arrow == ArrowKeys.RIGHT:
-                m.to_position.c += 1
+            lire_touche(m,arrow)
+            move_doc(m, grille, positionInitialX, positionInitialY)
             
-            if (0 <= m.to_position.l < len(grille) and (0 <= m.to_position.c < len(grille[0])) and (grille[m.to_position.l][m.to_position.c] == Case.CVide)):
-                gotoxy(positionInitialX + m.from_position.c * 3, positionInitialY + m.from_position.l)
-                print(grilleColors[Case.CVide].color + grilleColors[Case.CVide].char, end='')
-                
-                grille[m.from_position.l][m.from_position.c] = Case.CVide
-                grille[m.to_position.l][m.to_position.c] = Case.Doctor
-        
-                gotoxy(positionInitialX + m.to_position.c * 3, positionInitialY + m.to_position.l)
-                print(grilleColors[Case.Doctor].color + grilleColors[Case.Doctor].char, end='')
-        
-                m.from_position = LC(m.to_position.l, m.to_position.c)
+            
         else:
             continue
 

@@ -1,0 +1,17 @@
+# if (0 <= m.to_position.l < len(grille) and (0 <= m.to_position.c < len(grille[0])) and (grille[m.to_position.l][m.to_position.c] == Case.CVide)):
+                
+            #     ## look for last position and Print new case bckGround
+            #     gotoxy(positionInitialX + m.from_position.c * 3, positionInitialY + m.from_position.l)
+            #     print(grilleColors[Case.CVide].color + grilleColors[Case.CVide].char, end='') 
+                
+            #     ## Change grille value
+            #     grille[m.from_position.l][m.from_position.c] = Case.CVide
+            #     grille[m.to_position.l][m.to_position.c] = Case.Doctor
+        
+
+            #     ## Go to new position and print doc
+            #     gotoxy(positionInitialX + m.to_position.c * 3, positionInitialY + m.to_position.l)
+            #     print(grilleColors[Case.Doctor].color + grilleColors[Case.Doctor].char, end='')
+
+            #     ## Last position == actual position
+            #     m.from_position = LC(m.to_position.l, m.to_position.c)
