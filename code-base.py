@@ -22,15 +22,20 @@ def gotoxy(x, y):
 
 positionInitialX, positionInitialY = 15, 3
 
-class ArrowKeys(Enum):
-    UP_LEFT = 71
-    UP = 72
-    UP_RIGHT = 73
-    LEFT = 75
-    RIGHT = 77
-    DOWN_LEFT = 79
-    DOWN = 80
-    DOWN_RIGHT = 81
+class Action(Enum):
+    from enum import Enum
+
+class Action(Enum):
+    UP_LEFT = 'G'
+    UP = 'H'
+    UP_RIGHT = 'I'
+    LEFT = 'K'
+    RIGHT = 'M'
+    DOWN_LEFT = 'O'
+    DOWN = 'P'
+    DOWN_RIGHT = 'Q'
+    TELETRANSPORTE = 't'
+    ZAPPER = 'z'
 
 class Case(Enum):
     Doctor = 0
@@ -92,27 +97,31 @@ win = False
 lose = False
 niveau = 1
 
-def lire_touche(m, arrow):
-    if arrow == ArrowKeys.UP_LEFT:
+def lire_touche(m, touche):
+    if touche == Action.UP_LEFT:
         m.to_position.l -= 1
         m.to_position.c -= 1
-    elif arrow == ArrowKeys.UP:
+    elif touche == Action.UP:
         m.to_position.l -= 1
-    elif arrow == ArrowKeys.UP_RIGHT:
+    elif touche == Action.UP_RIGHT:
         m.to_position.l -= 1
         m.to_position.c += 1
-    elif arrow == ArrowKeys.DOWN_LEFT:
+    elif touche == Action.DOWN_LEFT:
         m.to_position.l += 1
         m.to_position.c -= 1
-    elif arrow == ArrowKeys.DOWN:
+    elif touche == Action.DOWN:
         m.to_position.l += 1
-    elif arrow == ArrowKeys.DOWN_RIGHT:
+    elif touche == Action.DOWN_RIGHT:
         m.to_position.l += 1
         m.to_position.c += 1
-    elif arrow == ArrowKeys.LEFT:
+    elif touche == Action.LEFT:
         m.to_position.c -= 1
-    elif arrow == ArrowKeys.RIGHT:
+    elif touche == Action.RIGHT:
         m.to_position.c += 1
+    elif touche == Action.TELETRANSPORTE:
+        m.to_position.l = random.randint(0, len(grille) - 1)
+        m.to_position.c = random.randint(0, len(grille[0]) - 1)
+
 
 def move_doc(m, grille, positionInitialX, positionInitialY ):
     if (0 <= m.to_position.l < len(grille) and (0 <= m.to_position.c < len(grille[0])) and (grille[m.to_position.l][m.to_position.c] == Case.CVide)):
@@ -149,19 +158,19 @@ while runGame:
 
     dalek_pos = [[0,0],[0,0],[0,0]]
     ## Dessin daleks 
-    for i in range(dalekInGame * niveau):
+    ##for i in range(dalekInGame * niveau):
         ##dalek_pos = [l_dalek , c_dalek]
 
 
         ## Give random position to the Dalek
-        dalek_pos[i] = random.randint(0, len(grille) - 1)
-        c_dalek[i] = random.randint(0, len(grille[0]) - 1)
+       ## dalek_pos[i] = random.randint(0, len(grille) - 1)
+        ##c_dalek[i] = random.randint(0, len(grille[0]) - 1)
 
         ## if the space in the Grille is empty print the fcking Dalek
-        if grille[l_dalek][c_dalek] == Case.CVide:
-            grille[l_dalek][c_dalek] = Case.Dalek
-            gotoxy(positionInitialX + c_dalek * 3, positionInitialY + l_dalek)
-            print(grilleColors[Case.Dalek].color + grilleColors[Case.Dalek].char, end='')
+        ##if grille[l_dalek][c_dalek] == Case.CVide:
+           ## grille[l_dalek][c_dalek] = Case.Dalek
+            ##gotoxy(positionInitialX + c_dalek * 3, positionInitialY + l_dalek)
+            ##print(grilleColors[Case.Dalek].color + grilleColors[Case.Dalek].char, end='')
         ## else no sabemos todavia 
 
 
@@ -173,22 +182,18 @@ while runGame:
              
 
     while not win and not lose:
-        c = msvcrt.getch()
+        touche = msvcrt.getch()
         m.to_position = LC(m.from_position.l, m.from_position.c)
 
-        if c == b'\xe0':
-            direction = msvcrt.getch()
-            touche =ord(direction)
-
-            try:
-              arrow = ArrowKeys(touche)
-            except ValueError:
-                continue
-            
-            lire_touche(m,arrow)
-            move_doc(m, grille, positionInitialX, positionInitialY)
-            
-            
+        if touche == b'\xe0':
+            touche = msvcrt.getch().decode("utf-8")
         else:
-            continue
+            touche = touche.decode("utf-8").lower()
+            
+        try:
+            action = Action(touche)
+            lire_touche(m, action)
+            move_doc(m, grille, positionInitialX, positionInitialY)
+        except ValueError:
+            continue 
 
