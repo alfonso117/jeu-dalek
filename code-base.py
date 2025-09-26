@@ -24,7 +24,7 @@ positionInitialX, positionInitialY = 15, 3
 
 class Action(Enum):
     from enum import Enum
-
+## aqui
 class Action(Enum):
     UP_LEFT = 'G'
     UP = 'H'
@@ -36,7 +36,7 @@ class Action(Enum):
     DOWN_RIGHT = 'Q'
     TELETRANSPORTE = 't'
     ZAPPER = 'z'
-
+## hasta aca
 class Case(Enum):
     Doctor = 0
     Dalek = 1
@@ -96,7 +96,7 @@ runGame = True
 win = False
 lose = False
 niveau = 1
-
+## aqui 
 def lire_touche(m, touche):
     if touche == Action.UP_LEFT:
         m.to_position.l -= 1
@@ -121,6 +121,7 @@ def lire_touche(m, touche):
     elif touche == Action.TELETRANSPORTE:
         m.to_position.l = random.randint(0, len(grille) - 1)
         m.to_position.c = random.randint(0, len(grille[0]) - 1)
+## hasta aca
 
 
 def move_doc(m, grille, positionInitialX, positionInitialY ):
@@ -180,7 +181,7 @@ while runGame:
             gotoxy(positionInitialX + m.from_position.c * 3, positionInitialY + m.from_position.l)
             print(grilleColors[Case.CVide].color + grilleColors[Case.CVide].char, end='')
              
-
+## aca
     while not win and not lose:
         touche = msvcrt.getch()
         m.to_position = LC(m.from_position.l, m.from_position.c)
@@ -196,4 +197,5 @@ while runGame:
             move_doc(m, grille, positionInitialX, positionInitialY)
         except ValueError:
             continue 
+## hasta aqui
 
